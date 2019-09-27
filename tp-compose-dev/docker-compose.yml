@@ -1,0 +1,12 @@
+version: "3"
+services:
+  database:
+    # configuration de mysql se fait ici
+
+  phpmyadmin:
+    # configuration de phpmyadmin se fait ici
+
+# pour networks, volumes etc, faire ici
+# comme par exemple
+# networks:
+  # mynetwork:
