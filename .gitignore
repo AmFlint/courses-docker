@@ -1,3 +1,5 @@
 docker-compose-done.yml
 node_modules
 mydata
+data
+exercise_done.sh

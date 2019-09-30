@@ -8,6 +8,7 @@ Voici la liste des TPs qui seront réalisés au cours de cours, dans l'ordre dan
 - [Installer Docker](./tp-install-docker)
 - [Lancer un container](./tp-docker-run)
 - [Persister la donnée avec les volumes](./tp-volumes)
+- [Le réseau dans Docker: Comment faire communiquer plusieurs containers](./tp-networks)
 - [Docker-compose, Créer un environnement de développement](./tp-compose-dev)
 
 ## Auteur

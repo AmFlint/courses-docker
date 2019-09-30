@@ -9,7 +9,7 @@ Pour cette démonstration, nous utiliserons l'image docker [amasselot/zelda:late
 Cette image contient simplement un serveur web `Nginx` qui expose sur le port 80 (du container) un site Web dédié à Zelda:
 ![zelda website](./assets/website.png)
 
-Par la suite, vous serez amené à exécuter des commandes à l'intérieur de votre container, pour intéragir avec ce système isoler depuis votre machine.
+Par la suite, vous serez amené à exécuter des commandes à l'intérieur de votre container, pour intéragir avec ce système isolé depuis votre machine.
 
 ## Pré-requis:
 
