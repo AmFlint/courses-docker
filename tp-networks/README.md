@@ -24,20 +24,20 @@ Il existe plusieurs méthodes pour permettre à des containers de communiquer en
 Donc, par exemple:
 - avec `link`:
   ```bash
-  docker run --name my-container alpine sleep 3600
-  docker run --name second-container --link my-container alpine sleep 3600
+  docker run -d --name my-container alpine sleep 3600
+  docker run -d --name second-container --link my-container alpine sleep 3600
   ```
 - avec `docker network`:
   ```bash
   docker network create my-network
-  docker run --name my-container --network my-network alpine sleep 3600
-  docker run --name second-container --network my-network alpine sleep 3600
+  docker run -d --name my-container --network my-network alpine sleep 3600
+  docker run -d --name second-container --network my-network alpine sleep 3600
   ```
 
 Ici, peu importe l'exemple utilisé, pour intéragir avec le premier container, nommé `my-container` (paramètre `--name`) depuis le second container, on peut utiliser le nom de domaine:
 ```bash
 # On exécute la commaned `ping my-container` dans le container second-container.
-docker exec -it second-container ping my-container
+docker exec second-container ping my-container
 PING my-container (172.17.0.2): 56 data bytes
 64 bytes from 172.17.0.2: seq=0 ttl=64 time=5.411 ms
 64 bytes from 172.17.0.2: seq=1 ttl=64 time=0.155 ms
