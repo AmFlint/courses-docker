@@ -1,0 +1,45 @@
+# TP - Docker images
+
+Dans ce TP, vous vous familiariserez avec les Dockerfile: un outils vous permettant de `packager` vos applications dans un des images docker réutilisables.
+
+Grâce aux `Dockerfiles`, vous serez en mesure de figer votre application à un instant T, dans une image docker qui vous servira par la suite à créer des containers.
+
+Jusqu'ici, vous avez appris à utiliser les différentes ressources `docker`, pour créer des environnements en adressant les différentes problématiques de:
+- Configuration (des containers)
+- Stockage (volume)
+- Réseau Network
+
+Tout cela, en utilisant des `images docker` proposées par d'autres utilisateurs (`nginx`, `node:alpine`, `amasselot/zelda`). Maintenant, il est temps d'apprendre à créer ses propres images.
+
+L'objectif de ce TP est de vous apprendre à utiliser le fichier `Dockerfile` pour construire des images docker à partir d'une application, vous permettant ainsi de porter cette application en tout simplicité vers de multiples environnements.
+
+Ainsi, le jours où vous serez amené face à des problématiques de `mise en production` d'une application, vous aurez les cartes en main pour livrer votre produit sous la forme la plus `portable` possible: Une image Docker, pour potentiellement la déployer sur de l'infrastructure, avec les connaissances que vous avez accumulées jusqu'à présent sur le Docker.
+
+## L'exercice
+
+Pour ce TP:
+- [Utilisez le Dockerfile ici](./Dockerfile)
+- L'application utilisée pour créer l'image docker [se trouve ici](./app): Simplement une API Back-end `express.js` (node.js)
+
+Ici, les objectifs à atteindre à travers l'exercice:
+- Votre nouvelle image (Dockerfile) devra étendre l'image `node:alpine`
+- L'image doit spécifier un dossier courant `/home/node`
+- Uniquement les **dépendances de production** devront être installées dans votre image
+- L'ensemble du [code présent dans le dossier app](./app) doit être présent dans le dossier `/home/node` du container
+- L'image doit utiliser une variable `ENV PORT` par défaut à **3001**
+- Par défaut, la commande exécutée au démarrage d'un container doit être `npm run start`
+
+Une fois ces critères remplis dans votre fichier Dockerfile, pour vérifier que tout fonctionne correctement:
+- Buildez l'image docker:
+  ```bash
+  # Il faut être dans le même dossier que Dockerfile
+  docker build -t tp-images:latest .
+  ```
+  Le build doit se faire sans erreur.
+- Testez votre image avec la commande suivante:
+  ```bash
+  docker run -p 3000:3001 tp-images:latest
+  ```
+  Le serveur node.js devrai démarrer sans problème. **Vérifier ensuite dans votre navigateur que le résultat est le suivant**:
+  
+  ![express website](./assets/express.png)
