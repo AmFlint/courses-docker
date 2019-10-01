@@ -19,7 +19,7 @@ Par la suite, vous serez amené à exécuter des commandes à l'intérieur de vo
 
 ### Première partie: Lancer le container
 
-- Utiliser la commande `docker run` pour lancer un container, vous pouvez utiliser le paramètre `-p` (ou `--publish`) pour spécifier une connexion entre le port de l'hôte et du container (e.g. -p 80:8080 => port 80 de l'hôte pointe sur le port 8080 du container).
+- Utiliser la commande `docker run` pour lancer un container, vous pouvez utiliser le paramètre `-p` (ou `--publish`) pour spécifier une connexion entre le port de l'hôte et du container (e.g. -p 80:80 => port 80 de l'hôte pointe sur le port 80 du container).
 - Pour vérifier que tout fonctionne, le résultat dans votre terminal pour la commande `docker ps` doit ressembler à cela:
   ```bash
   docker ps
