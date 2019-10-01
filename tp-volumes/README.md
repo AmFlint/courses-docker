@@ -15,7 +15,7 @@ Il existe deux mécaniques pour intéragir avec le stockage et le système de fi
   # Ici, on créer un fichier "volumefile" dans le dossier monté (docker volume)
   docker run --rm -v mydata:/data amasselot/zelda touch /data/volumefile
   # On relance un nouveau container, en utilisant le même volume mydata dans lequel nous avons écrit précédemment, et lisons le contenu du fichier test.txt
-  docker run --rm -v mydata:/data ls /data
+  docker run --rm -v mydata:/data amasselot/zelda ls /data
   ```
   Lorsque le container est supprimé, le volume existe toujours en local (sur votre machine), vous pouvez utiliser ce volume à nouveau dans un autre container. La commande précédente devrai donc afficher le résultat suivant (lister les fichiers dans le dossier /data, qui est le volume docker):
   ```bash
