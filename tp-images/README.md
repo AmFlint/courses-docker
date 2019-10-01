@@ -26,7 +26,6 @@ Ici, les objectifs à atteindre à travers l'exercice:
 - L'image doit spécifier un dossier courant `/home/node`
 - Uniquement les **dépendances de production** devront être installées dans votre image
 - L'ensemble du [code présent dans le dossier app](./app) doit être présent dans le dossier `/home/node` du container
-- L'image doit utiliser une variable `ENV PORT` par défaut à **3001**
 - Par défaut, la commande exécutée au démarrage d'un container doit être `npm run start`
 
 Une fois ces critères remplis dans votre fichier Dockerfile, pour vérifier que tout fonctionne correctement:
@@ -38,8 +37,13 @@ Une fois ces critères remplis dans votre fichier Dockerfile, pour vérifier que
   Le build doit se faire sans erreur.
 - Testez votre image avec la commande suivante:
   ```bash
-  docker run -p 3000:3001 tp-images:latest
+  docker run -p 3000:3000 tp-images:latest
   ```
-  Le serveur node.js devrai démarrer sans problème. **Vérifier ensuite dans votre navigateur que le résultat est le suivant**:
-  
+  Le serveur node.js devrai démarrer sans problème **Vérifier ensuite dans votre navigateur que le résultat est le suivant**:
+
   ![express website](./assets/express.png)
+- L'application node utilisée dans ce TP utilise la variable d'environnement `PORT`, pour configurer le serveur Web. Testez à nouveau avec la commande suivante (en modifiant la variable PORT, pour s'assurer que l'image buildée est bien sensible à ce paramètre):
+  ```bash
+  docker run --rm -e PORT=2000 -p 3000:2000 tp-images:latest
+  ```
+  Ouvrez votre navigateur sur http://localhost:3000 à nouveau, vous devriez observer le même résultat que précédemment.
