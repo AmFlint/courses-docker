@@ -54,9 +54,58 @@ Dans cette seconde partie, vous allez reconstruire l'image `amasselot/zelda` (qu
 
 Le site est développé en utilisant `Webpack` pour facilier le workflow de dev front, il faudra donc utiliser la commande `npm run build` pour générer les fichiers statiques (html, js, png, css) dans le dossier `build`.
 
-On peut utiliser une image `nginx:alpine` pour servir ces fichiers statiques comme on l'a vu précédemment (les fichiers statiques doivent se trouver dans le dossier `/usr/share/nginx/html`).
+Pour cet exercice, vous aurez besoins d'utiliser deux `stages` dans votre Dockerfile:
+- Une première (étape), basée sur l'image `node:alpine`, car le site est développé avec des technologies `node.js`, il va falloir dans un premier temps:
+  - Installer les dépendances avec la commande `npm install`
+  - Utiliser `Webpack` pour build les fichiers statiques (html, css, js, png/jpg...) du site, avec la commande `npm run build`. (**Le dossier `build` sera créer suite à cette commande, contenant les fichiers statiques)**.
+- Une seconde, basée sur `nginx:alpine` afin d'utiliser le serveur Web, pour exposer les fichiers statiques `buildés` dans l'étape précédente (à l'emplacement `/usr/share/nginx/html` dans le container/image).
+
+Pour rappel, pour déclarer deux étapes dans un Dockerfile:
+```Dockerfile
+# Exemple: première étape, on build un application en go
+# Le "as build" va nous servir pour copier le binaire produit dans la seconde étape
+FROM golang:alpine as build
+
+WORKDIR /home/app
+
+COPY . .
+
+# On build l'application go, et on place le binaire produit à /home/application, pour le réutiliser plus tard dans la seconde étape
+RUN go build -o /home/application 
+
+# On donne le droit d'exécuter le binaire produit
+RUN chmod +x /home/application
+
+# Seconde étape - pour exécuter le binaire, on souhaite utiliser un environnement alpine léger
+FROM alpine
+
+WORKDIR /home/app
+
+# On copie le binaire produit dans la première phase grâce au flag --from
+# Ici, on place le binaire dans notre image finale à l'emplacement /home/app/application
+COPY --from=build /home/application ./application
+
+# On déclare que la commande à utiliser est le déclenchement du binaire produit, à présent copier à l'emplacement /home/app/application
+CMD ["/home/app/application"]
+```
+
+J'ai décidé d'utiliser un exemple d'une application en golang pour ne pas vous spoiler le fonctionnement avec `node` pour cet exercice, mais vous pouvez facilement adapter le fonctionnement de ce Dockerfile au besoins de cet exercice: Utiliser node:alpine pour construire l'application, et exposer les fichiers buildés dans une image nginx.
+
+### Les consignes:
 
 - Téléchargez ou installez le projet qui contient le code du site zelda [est disponible sur ce repo Github](https://github.com/AmFlint/hetic-w2-p2019-05)
-- L'image à utiliser: `nginx:alpine`
-- La commande `npm run build` sert à générer le site (les fichiers `html`) dans le dossier `build`.
-- Le dossier `build` produit pas la commande `npm run build` doit être déplacé vers le dossier `/usr/share/nginx/html` qui sera servi par le serveur Web ngin.
+- cd dans le dossier contenant le projet zelda
+- Créez un fichier `Dockerfile`, et complétez afin de pouvoir re-créer l'image `amasselot/zelda`.
+
+Pour lancer le build à partir d'un Dockerfile, placez vous dans le même dossier et lancez:
+```bash
+docker build -t <nom-de-votre-image> .
+```
+Si aucun message d'erreur ne s'affiche, l'image est construite correctement.
+
+Vous pouvez ensuite tester l'image que vous pouvez simplement:
+```bash
+docker run --rm -p 80:80 <nom-de-votre-image>
+```
+Allez ensuite dans votre navigateur pour vérifier que le site s'affiche correctement (Pensez à supprimer le cache !), vous devriez voir le résultat suivant:
+![website zelda](./assets/website.png)
