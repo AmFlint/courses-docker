@@ -127,3 +127,39 @@ Nous allons utiliser principalement [le sous-dossier tp-volumes-web](./tp-volume
 - Arrêtez le container, modifier [le fichier index.html](./tp-volumes-web/index.html) à nouveau, puis relancez la commande `docker run -p ... -v ... nginx:alpine`, ouvrez votre navigateur http://localhost:80, le contenu affiché doit être le même que celui de votre fichier index.html.
 
 À présent, vous devez être en mesure d'utiliser des `mountpoints` et `docker volumes` pour intéragir avec le système de fichier d'un container, et surtout pour `persiter de la donnée en local`.
+
+
+### Bonus
+
+Avec l'image [mongo:3.2](https://hub.docker.com/_/mongo) (Référez vous à la documentation pour la partie stockage):
+- Utiliser un volume (local ou docker volume, à votre convenance) pour persister les données de la base mongo
+- Lancer le container mongo (en prenant soin de monter le volume au bon emplacement dans le container)
+- Dans un autre terminal (ou dans le même si vous avez utilisé le flag `-d`): entrez dans le shell mongo avec la commande:
+  ```bash
+  docker exec -it <container-id> mongo
+  ```
+- Créez des données dans le container:
+  ```bash
+  # Dans le container
+  use local # utiliser la base mongo par défaut: local
+  # Créer une nouvelle collection
+  db.createCollection('dogs')
+  # Insérez un nouveau document
+  db.dogs.insert({ name: 'hello' })
+  # Assurez vous que le document a bien été crée
+  db.dogs.find()
+  # { "_id" : ObjectId("5d9457dc28f8e81ba1d92d53"), "name" : "hello" }
+  ```
+- Supprimez le container, puis `docker run` à nouveau (avec la même commande que précédemment)
+- Entrez à nouveau dans le container (Shell mongo):
+  ```bash
+  docker exec -it <container-id> mongo
+  ```
+- Assurez vous que la donnée est toujours présente, puisque montée au bon endroit (et donc persistée sur votre machine en chaque exécution de container):
+  ```bash
+  # utiliser la base local
+  use local
+  # Lister les données
+  db.dogs.find()
+  # { "_id" : ObjectId("5d9457dc28f8e81ba1d92d53"), "name" : "hello" }
+  ```
