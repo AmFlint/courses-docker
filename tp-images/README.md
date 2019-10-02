@@ -15,7 +15,7 @@ L'objectif de ce TP est de vous apprendre à utiliser le fichier `Dockerfile` po
 
 Ainsi, le jours où vous serez amené face à des problématiques de `mise en production` d'une application, vous aurez les cartes en main pour livrer votre produit sous la forme la plus `portable` possible: Une image Docker, pour potentiellement la déployer sur de l'infrastructure, avec les connaissances que vous avez accumulées jusqu'à présent sur le Docker.
 
-## L'exercice
+## Exercice: Partie 1
 
 Pour ce TP:
 - [Utilisez le Dockerfile ici](./Dockerfile)
@@ -47,3 +47,16 @@ Une fois ces critères remplis dans votre fichier Dockerfile, pour vérifier que
   docker run --rm -e PORT=2000 -p 3000:2000 tp-images:latest
   ```
   Ouvrez votre navigateur sur http://localhost:3000 à nouveau, vous devriez observer le même résultat que précédemment.
+
+## Exercice: Partie 2
+
+Dans cette seconde partie, vous allez reconstruire l'image `amasselot/zelda` (que nous avons déjà utilisé au cours des TP précédents).
+
+Le site est développé en utilisant `Webpack` pour facilier le workflow de dev front, il faudra donc utiliser la commande `npm run build` pour générer les fichiers statiques (html, js, png, css) dans le dossier `build`.
+
+On peut utiliser une image `nginx:alpine` pour servir ces fichiers statiques comme on l'a vu précédemment (les fichiers statiques doivent se trouver dans le dossier `/usr/share/nginx/html`).
+
+- Téléchargez ou installez le projet qui contient le code du site zelda [est disponible sur ce repo Github](https://github.com/AmFlint/hetic-w2-p2019-05)
+- L'image à utiliser: `nginx:alpine`
+- La commande `npm run build` sert à générer le site (les fichiers `html`) dans le dossier `build`.
+- Le dossier `build` produit pas la commande `npm run build` doit être déplacé vers le dossier `/usr/share/nginx/html` qui sera servi par le serveur Web ngin.
