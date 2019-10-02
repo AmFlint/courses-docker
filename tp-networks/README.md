@@ -73,7 +73,7 @@ Réferez vous à la [documentation officielle de l'image mongo](https://hub.dock
 - Persister les données `en local` (à l'aide de Volumes: Docker volume ou mountpoint, à votre convenance).
 - Configurer le `init root user et password`:
   - `user`: `tp-docker`
-  - `root`: `tp-docker-password`
+  - `password`: `tp-docker-password`
 
 #### Container Mongo-Express:
 
