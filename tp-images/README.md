@@ -103,7 +103,7 @@ docker build -t <nom-de-votre-image> .
 ```
 Si aucun message d'erreur ne s'affiche, l'image est construite correctement.
 
-Vous pouvez ensuite tester l'image que vous pouvez simplement:
+Vous pouvez ensuite tester l'image simplement:
 ```bash
 docker run --rm -p 80:80 <nom-de-votre-image>
 ```
