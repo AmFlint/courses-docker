@@ -15,7 +15,9 @@ L'objectif de ce TP est de vous apprendre à utiliser le fichier `Dockerfile` po
 
 Ainsi, le jours où vous serez amené face à des problématiques de `mise en production` d'une application, vous aurez les cartes en main pour livrer votre produit sous la forme la plus `portable` possible: Une image Docker, pour potentiellement la déployer sur de l'infrastructure, avec les connaissances que vous avez accumulées jusqu'à présent sur le Docker.
 
-**Vous pouvez suivre un example de [Dockerfile pour une application en Golang ici](./examples/go)**
+**Différents exemples sont disponibles ici**:
+- [Application Golang](./examples/go)
+- [Application Python](./examples/python)
 
 ## Exercice: Partie 1
 

@@ -12,4 +12,6 @@ FROM alpine
 
 COPY --from=build /home/application /home/application
 
+EXPOSE 8080
+
 CMD [ "/home/application" ]
