@@ -1,12 +1,49 @@
 version: "3"
+
 services:
+
   database:
-    # configuration de mysql se fait ici
+    image: mysql:5.6
+    environment:
+      MYSQL_ROOT_PASSWORD: myrootpassword
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mydata:/var/lib/mysql
+    networks:
+      - database
 
   phpmyadmin:
-    # configuration de phpmyadmin se fait ici
+    image: phpmyadmin/phpmyadmin:4.9
+    ports:
+      - 8080:80
+    networks:
+      - database
+    environment:
+      PMA_HOST: database
+      PMA_USER: test
+      PMA_PASSWORD: test
 
-# pour networks, volumes etc, faire ici
-# comme par exemple
-# networks:
-  # mynetwork:
+  api:
+    image: node:alpine
+    ports:
+      - 3000:3000
+    working_dir: /home/app
+    volumes:
+      - ./app:/home/app
+    command: npm run start
+    environment:
+      DB_HOST: database
+      DB_USER: 'test'
+      DB_PASSWORD: 'test'
+      DB_NAME: 'mydatabase'
+    networks:
+      - database
+    
+
+networks:
+  database:
+

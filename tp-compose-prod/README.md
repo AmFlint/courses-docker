@@ -72,6 +72,6 @@ Vous avez vu au cours du [TP sur les images](../tp-images) comment build:
 
 ## Vérification
 
-Pour vous assurez que l'exercice est réalisé correctement, vous devrez ouvrir votre navigateur sur le `localhost:80` et constater la page suivante:
-
+Pour vous assurez que l'exercice est réalisé correctement, vous devrez ouvrir votre navigateur sur le `localhost:80` et constatez la page suivante:
+(TODO: screenshot site)
 

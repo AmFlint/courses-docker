@@ -1,0 +1,25 @@
+# Vous devrez au préalable télécharger le repository Git contenant le code du site Zelda: Regardez le README.
+# Placez ensuite ce Dockerfile à l'intérieur du dossier
+# docker build -t votre-image -f Dockerfile-zelda .
+
+FROM node as build
+
+WORKDIR /home/node
+
+COPY package.json .
+
+RUN npm install
+
+COPY . .
+
+# On installe la librairie système libpng12, nécessaire pour que WebPack compile le code dans la commande npm run build suivante
+RUN wget -q -O /tmp/libpng12.deb http://mirrors.kernel.org/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1_amd64.deb \
+  && dpkg -i /tmp/libpng12.deb \
+  && rm /tmp/libpng12.deb
+
+RUN npm run build
+
+# Stage finale, on dépose les fichiers statiques construits précédemment derrière un serveur nginx.
+FROM nginx:alpine
+
+COPY --from=build /home/node/build /usr/share/nginx/html
