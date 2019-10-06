@@ -2,7 +2,7 @@
 
 Comme nous avons pu le voir précédemment, un container est `éphémère`, ce qui veut dire que la donnée générée pendant l'exécution d'un container est supprimée lors de la suppression du container.
 
-Hors, il peut être intéressant de persister cette donnée en local, comme par exemple dans les cas suivants:
+Or il peut être intéressant de persister cette donnée en local, comme par exemple dans les cas suivants:
 - on utilise un service de base de donnée MySQL dans un container, les enregistrements sauvegardés pendant l'exécution du container doivent être conservés en cas de redémarrage/suppression du container.
 - On possède une application permettant de générer des fichiers PDF à partir d'enregistrements d'une base de donnée. Cette application tourne dans un container et est exécutée périodiquement (tous les jours à midi par exemple), on souhaite sauvegarder les PDF générés à la fin de l'exécution de l'application.
 
@@ -53,12 +53,12 @@ Vous allez donc devoir:
 
 - Placez vous (`cd` dans votre terminal) dans le dossier contenant ce TP (que vous avez `git clone` en local).
 - Créez un nouveau volume appelé `tp-volume` (`docker volume`)
-- Lancez un container `node:alpine`, montez [le fichier index.js](./index.js) à l'emplacement `/home/app/index.js` avec la commande `ls /home/app`. Si vous montez le script correctement, vous devriez voir le résultat suivant:
+- Lancez un container `node:alpine`, montez [le fichier index.js](./index.js) à l'emplacement `/home/app/index.js`. Avec la commande `ls /home/app`, si vous montez le script correctement, vous devriez voir le résultat suivant:
   ```bash
   # docker run -v .... node:alpine ls /home/app
   index.js # -> Le script monté dans le container
   ```
-- Complétez votre commande (`docker run -v ... node:alpine`): montez le volume créer précédemment (`tp-volume`) à l'emplacement `/data` dans le container et exécutez la commande: `ls /`. Si votre commande est correct, vous devriez voir le résultat suivant:
+- Complétez votre commande (`docker run -v ... node:alpine`): montez le volume créer précédemment (`tp-volume`) à l'emplacement `/data` dans le container et exécutez la commande: `ls /`. Si votre commande est correcte, vous devriez voir le résultat suivant:
   ```bash
   # docker run -v ... node:alpine ls /
   bin
@@ -80,13 +80,13 @@ Vous allez donc devoir:
   usr
   var
   ```
-- Vous pouvez maintenant compléter votre commande: Exécutez la commande `node /home/app/index.js` (au lieu de `ls /`). Cela vous permettra d'exécuter le fichier `index.js` monté depuis votre ordinateur, pour générer un fichier dans le `docker volume` crée et monté précédemment.
+- Vous pouvez maintenant compléter votre commande: Exécutez la commande `node /home/app/index.js` (au lieu de `ls /`). Cela vous permettra d'exécuter le fichier `index.js` monté depuis votre ordinateur, pour générer un fichier dans le `docker volume`, crée et monté précédemment.
   ```bash
   # docker run -v ... node:alpine node /home/app/index.js
   # ici "lxjd7a4780s75qpjpic5ff" est un nom généré aléatoirement, vous aurez donc un nom différent
   File generated properly at /data/lxjd7a4780s75qpjpic5ff
   ```
-  Si votre commande st incorrect , vous pourriez obtenir une erreur comme par exemple:
+  Si votre commande est incorrecte, vous pourriez obtenir une erreur comme par exemple:
   ```bash
     [Error: ENOENT: no such file or directory, open '/data/yb74xeu3lbrl7fadcddak'] {
     errno: -2,
@@ -96,7 +96,7 @@ Vous allez donc devoir:
   }
   ```
 - Ré-exécutez la commande plusieurs fois, pour générer plusieurs fichiers dans votre volume.
-- Maintenant, nous allons vérifier que la donnée est persistée correctement entre chaque exécution des nouveaux containers: Modifiez la commande pour exécuter `ls /data` dans le container:
+- Maintenant, nous allons vérifier que la donnée est réellement persistante entre chaque exécution des nouveaux containers: Modifiez la commande pour exécuter `ls /data` dans le container:
   ```bash
   # docker run ... node:alpine ls /data
   3s7rl9n1cmp0u1irry04iy
@@ -106,7 +106,7 @@ Vous allez donc devoir:
   pythemz2v7ol1i7iwhsrm
   # Les noms des fichiers ci-dessus sont générés de façon aléatoire, vous n'aurez donc pas le même résultat, il faut juste que des fichiers apparaissent
   ```
-  Dans le cas où le résultat est vide, la donnée n'a pas été persistée entre chaque exécution, vous avez fait une erreur quelque part, je vous invite donc à reprendre l'exercice.
+  Dans le cas où le résultat est vide, la donnée n'est pas persistante entre chaque exécution, vous avez fait une erreur quelque part, je vous invite donc à reprendre l'exercice.
 
 Vous pouvez supprimer le volume crée pour cet exercice avec la commande:
 ```bash
@@ -124,7 +124,7 @@ Nous allons utiliser principalement [le sous-dossier tp-volumes-web](./tp-volume
 - Pour vérifier que tout fonctionne comme prévu, ouvrez votre navigateur à l'adresse http://localhost:80, vous devriez voir le contenu [du fichier index.html](./tp-volumes-web/index.html).
 - Vous pouvez dès à présent modifier le contenu du fichier (Par exemple: `Hello, a été modifé`), et sauvegardez le fichier en local.
 - Rechargez la page de votre navigateur, vous devriez à présent voir le contenu modifié: Le `mountpoint` entre votre dossier local `tp-volumes-web` (et son contenu: index.html) et le dossier `/usr/share/nginx/html` dans votre container fonctionne correctement.
-- Arrêtez le container, modifier [le fichier index.html](./tp-volumes-web/index.html) à nouveau, puis relancez la commande `docker run -p ... -v ... nginx:alpine`, ouvrez votre navigateur http://localhost:80, le contenu affiché doit être le même que celui de votre fichier index.html.
+- Arrêtez le container, modifiez [le fichier index.html](./tp-volumes-web/index.html) à nouveau, puis relancez la commande `docker run -p ... -v ... nginx:alpine`, ouvrez votre navigateur http://localhost:80, le contenu affiché doit être le même que celui de votre fichier index.html.
 
 À présent, vous devez être en mesure d'utiliser des `mountpoints` et `docker volumes` pour intéragir avec le système de fichier d'un container, et surtout pour `persiter de la donnée en local`.
 
@@ -133,7 +133,7 @@ Nous allons utiliser principalement [le sous-dossier tp-volumes-web](./tp-volume
 
 Avec l'image [mongo:3.2](https://hub.docker.com/_/mongo) (Référez vous à la documentation pour la partie stockage):
 - Utiliser un volume (local ou docker volume, à votre convenance) pour persister les données de la base mongo
-- Lancer le container mongo (en prenant soin de monter le volume au bon emplacement dans le container)
+- Lancez le container mongo (en prenant soin de monter le volume au bon emplacement dans le container)
 - Dans un autre terminal (ou dans le même si vous avez utilisé le flag `-d`): entrez dans le shell mongo avec la commande:
   ```bash
   docker exec -it <container-id> mongo
@@ -155,7 +155,7 @@ Avec l'image [mongo:3.2](https://hub.docker.com/_/mongo) (Référez vous à la d
   ```bash
   docker exec -it <container-id> mongo
   ```
-- Assurez vous que la donnée est toujours présente, puisque montée au bon endroit (et donc persistée sur votre machine en chaque exécution de container):
+- Assurez vous que la donnée est toujours présente, puisque montée au bon endroit (et donc persistante sur votre machine à chaque exécution de container):
   ```bash
   # utiliser la base local
   use local

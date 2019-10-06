@@ -1,11 +1,11 @@
 # TP - Le réseau dans Docker
 
-La problématique de ce TP: Comment faire communiquer plusieurs containers ?
+La problématique de ce TP : Comment faire communiquer plusieurs containers ?
 
 Il existe plusieurs méthodes pour permettre à des containers de communiquer entre eux:
 - À l'aide du paramètre `link`: Manuellement `relier` un container à un autre container:
   ```bash
-  # Ici, on créer le premier container
+  # Ici, on crée le premier container
   docker run --name my-container alpine sleep 3600
   # on créer le deuxième container, et lui donne l'accès réseau au premier, nommé "my-container" avec le paramètre --links
   docker run --name second-container --link my-container alpine sleep 3600
@@ -55,7 +55,7 @@ Et d'ajouter une nouvelle notion: `Gérer la communication réseau entre différ
 
 ## L'exercice
 
-Au cours de cet exercice, vous allez travailler avec deux containers:
+Au cours de cet exercice, vous allez travailler avec deux containers :
 - **MongoDB**: Moteur de Base de données NoSQL (stock des documents), il utilisera un volume docker pour persister ses données.
 - **Mongo-Express**: Interface graphique permettant l'administration d'une base de donnée Mongo DB (développée avec Express.js, d'où le nom). Ce container aura besoins de se connecter au container `mongo`.
 
@@ -63,11 +63,11 @@ Ici, vous serez livré à vous même (à travers la documentation des différent
 
 ### Les contraintes
 
-**Les données doivent être persistées (pour mongo) avec un volume, c'est à dire que si l'on supprime le container puis en recréer un nouveau, les données crées précédemment doivent être toujours présente**.
+**Les données doivent persister (pour mongo) avec un volume, c'est-à-dire que si l'on supprime le container puis on en recréer un nouveau, les données crées précédemment doivent être toujours présentes**.
 
 #### Container Mongo:
 
-Réferez vous à la [documentation officielle de l'image mongo](https://hub.docker.com/_/mongo) pour découvrir comment la configurer. (L'objectif est de vous forcer à chercher les informations de vous même, pour le jours où vous devrez vous débrouiller seul):
+Réferez vous à la [documentation officielle de l'image mongo](https://hub.docker.com/_/mongo) pour découvrir comment la configurer. (L'objectif est de vous forcer à chercher les informations de vous même, pour les jours où vous devrez vous débrouiller seul):
 - Vous utiliserez l'image `mongo:3.2`
 - Le container doit s'appeler `tp-docker-mongo`
 - Persister les données `en local` (à l'aide de Volumes: Docker volume ou mountpoint, à votre convenance).
