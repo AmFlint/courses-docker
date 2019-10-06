@@ -7,17 +7,17 @@ Hors, il peut être intéressant de persister cette donnée en local, comme par 
 - On possède une application permettant de générer des fichiers PDF à partir d'enregistrements d'une base de donnée. Cette application tourne dans un container et est exécutée périodiquement (tous les jours à midi par exemple), on souhaite sauvegarder les PDF générés à la fin de l'exécution de l'application.
 
 Il existe deux mécaniques pour intéragir avec le stockage et le système de fichier d'un container qu'on appelle `volumes`, et qui fait référence:
-- à un `docker volume`: On délègue la gestion de ce dossier à Docker, on lui demande simplement `créer moi un volume qui s'appelle mydata, et monte le dans le container à l'emplacement /data`:
+- à un `docker volume`: On délègue la gestion de ce dossier à Docker, on lui demande simplement `crée-moi un volume qui s'appelle mydata, et monte le dans le container à l'emplacement /data`:
   ```bash
   docker volume create mydata
   # On spécifie qu'on veut utiliser le volume mydata, et le monter à l'emplacement /data dans le container
   # le paramètre --rm indique que le container sera supprimé à la fin de l'exécution de la commande "touch ..."
-  # Ici, on créer un fichier "volumefile" dans le dossier monté (docker volume)
+  # Ici, on crée un fichier "volumefile" dans le dossier monté (docker volume)
   docker run --rm -v mydata:/data amasselot/zelda touch /data/volumefile
   # On relance un nouveau container, en utilisant le même volume mydata dans lequel nous avons écrit précédemment, et lisons le contenu du fichier test.txt
   docker run --rm -v mydata:/data amasselot/zelda ls /data
   ```
-  Lorsque le container est supprimé, le volume existe toujours en local (sur votre machine), vous pouvez utiliser ce volume à nouveau dans un autre container. La commande précédente devrai donc afficher le résultat suivant (lister les fichiers dans le dossier /data, qui est le volume docker):
+  Lorsque le container est supprimé, le volume existe toujours en local (sur votre machine), vous pouvez utiliser ce volume à nouveau dans un autre container. La commande précédente devrait donc afficher le résultat suivant (lister les fichiers dans le dossier /data, qui est le volume docker):
   ```bash
   volumefile
   ```
@@ -27,12 +27,12 @@ Il existe deux mécaniques pour intéragir avec le stockage et le système de fi
   mkdir mydata
   # Pour spéficier que l'on souhaite monter un volume local, on doit utiliser le chemin absolu vers ce fichier, d'où l'utilisation de la commande `pwd`
   docker run --rm -v $(pwd)/mydata:/data amasselot/zelda touch /data/mountpoint
-  # En listant les fichiers dans un container en montant le même volune local
+  # En listant les fichiers dans un container en montant le même volume local
   docker run --rm -v $(pwd)/mydata:/data amasselot/zelda ls /data
   # Et: En listant les fichiers en local
   ls mydata
   ```
-  Cette méthode est souvent la plus utilisée, puisque l'on a le contrôle total de nos données (`docker volume`  le gère pour nous).
+  Cette méthode est souvent la plus utilisée, puisqu'on a le contrôle total de nos données (`docker volume` le gère pour nous).
 
 À Travers ce TP, vous vous familiariserez avec l'utilisation de ces deux méthodes.
 
