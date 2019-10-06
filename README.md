@@ -6,9 +6,10 @@ L'objectif de ces exercices pratiques est de venir compléter les cours théoriq
 
 Ainsi, ils seront en mesure de rencontrer les différentes problématiques pendant leur cycle d'apprentissage au cours de cette formation, pour être préparé correctement sur le terrain.
 
-Ces TPs se concentrent sur l'utilisation et la configuration de plusieurs images Docker différentes, pour illustrer la réalité du milieu: On nous impose une `stack technique` propre à une entreprise où à une équipe, il faut donc savoir s'adapter pour créer des environnements qui répondent au besoins initial, même si on n'est pas familier avec une stack particulière.
+Ces TPs se concentrent sur l'utilisation et la configuration de plusieurs images Docker différentes.
+Pour illustrer la réalité du milieu, on nous impose une `stack technique` propre à une entreprise où à une équipe. Il faut donc savoir s'adapter pour créer des environnements qui répondent aux besoins initiaux, même si on n'est pas familier avec une stack particulière.
 
-Ce cours est avant-tout destiné à un public de développeurs (Web principalement, puisqu'il s'agit d'une formation dispensée aux étudiants de la formation Web d'Hétic), afin de leur donner une indépendance pour la gestion de leurs environnements: le développement avec docker-compose par exemple, et l'utilisation de Docker pour packager des applications et les exécuter sur des serveurs de productions.
+Ce cours est avant-tout destiné à un public de développeurs (Web principalement, puisqu'il s'agit d'une formation dispensée aux étudiants de la formation Web d'Hétic), afin de leur donner une indépendance pour la gestion de leurs environnements : le développement avec docker-compose par exemple, et l'utilisation de Docker pour packager des applications et les exécuter sur des serveurs de productions.
 
 ## List des TPs
 
