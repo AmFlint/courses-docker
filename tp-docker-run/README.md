@@ -1,6 +1,6 @@
 # TP - Lancez votre premier container et exécutez des commandes
 
-L'objectif de cet exercice est de vous familiariser avec la commande de base `docker run` et le fonctionnement basique d'un container, avec la première notion réseau de `ports`: comment exposer un service provenant d'un container sur la machine hôte. Ensuite, vous apprendrez les subtilités de la commande `docker exec` pour exécuter des commandes dans votre container.
+L'objectif de cet exercice est de vous familiariser avec la commande de base `docker run` et le fonctionnement basique d'un container, mais aussi avec la première notion réseau de `ports`, à savoir comment exposer un service provenant d'un container sur la machine hôte. Ensuite, vous apprendrez les subtilités de la commande `docker exec` pour exécuter des commandes dans votre container.
 
 Ainsi, vous devrez lancer un container contenant un service `serveur web`, et accéder à ce serveur Web directement depuis votre machine.
 
