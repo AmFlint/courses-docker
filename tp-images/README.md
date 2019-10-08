@@ -1,19 +1,19 @@
 # TP - Docker images
 
-Dans ce TP, vous vous familiariserez avec les Dockerfile: un outils vous permettant de `packager` vos applications dans un des images docker réutilisables.
+Dans ce TP, vous vous familiariserez avec les Dockerfile : un outil vous permettant de `packager` vos applications dans des images docker réutilisables.
 
 Grâce aux `Dockerfiles`, vous serez en mesure de figer votre application à un instant T, dans une image docker qui vous servira par la suite à créer des containers.
 
-Jusqu'ici, vous avez appris à utiliser les différentes ressources `docker`, pour créer des environnements en adressant les différentes problématiques de:
+Jusqu'ici, vous avez appris à utiliser les différentes ressources `docker`, pour créer des environnements en adressant les différentes problématiques de :
 - Configuration (des containers)
 - Stockage (volume)
 - Réseau Network
 
-Tout cela, en utilisant des `images docker` proposées par d'autres utilisateurs (`nginx`, `node:alpine`, `amasselot/zelda`). Maintenant, il est temps d'apprendre à créer ses propres images.
+Tout cela, en utilisant des `images docker` proposées par d'autres utilisateurs (`nginx`, `node:alpine`, `amasselot/zelda`). Maintenant, il est temps d'apprendre à créer vos propres images.
 
 L'objectif de ce TP est de vous apprendre à utiliser le fichier `Dockerfile` pour construire des images docker à partir d'une application, vous permettant ainsi de porter cette application en tout simplicité vers de multiples environnements.
 
-Ainsi, le jours où vous serez amené face à des problématiques de `mise en production` d'une application, vous aurez les cartes en main pour livrer votre produit sous la forme la plus `portable` possible: Une image Docker, pour potentiellement la déployer sur de l'infrastructure, avec les connaissances que vous avez accumulées jusqu'à présent sur le Docker.
+Ainsi, le jour où vous serez amené face à des problématiques de `mise en production` d'une application, vous aurez les cartes en main pour livrer votre produit sous la forme la plus `portable` possible : Une image Docker. Et ainsi potentiellement la déployer sur de l'infrastructure, avec les connaissances que vous avez accumulées jusqu'à présent sur Docker.
 
 **Différents exemples sont disponibles ici**:
 - [Application Golang](./examples/go)
@@ -43,7 +43,7 @@ Une fois ces critères remplis dans votre fichier Dockerfile, pour vérifier que
   ```bash
   docker run -p 3000:3000 tp-images:latest
   ```
-  Le serveur node.js devrai démarrer sans problème **Vérifier ensuite dans votre navigateur que le résultat est le suivant**:
+  Le serveur node.js devrait démarrer sans problème **Vérifier ensuite dans votre navigateur que le résultat est le suivant**:
 
   ![express website](./assets/express.png)
 - L'application node utilisée dans ce TP utilise la variable d'environnement `PORT`, pour configurer le serveur Web. Testez à nouveau avec la commande suivante (en modifiant la variable PORT, pour s'assurer que l'image buildée est bien sensible à ce paramètre):
@@ -93,7 +93,7 @@ COPY --from=build /home/application ./application
 CMD ["/home/app/application"]
 ```
 
-J'ai décidé d'utiliser un exemple d'une application en golang pour ne pas vous spoiler le fonctionnement avec `node` pour cet exercice, mais vous pouvez facilement adapter le fonctionnement de ce Dockerfile au besoins de cet exercice: Utiliser node:alpine pour construire l'application, et exposer les fichiers buildés dans une image nginx.
+J'ai décidé d'utiliser un exemple d'une application en golang pour ne pas vous spoiler le fonctionnement avec `node` pour cet exercice, mais vous pouvez facilement adapter le fonctionnement de ce Dockerfile aux besoins de cet exercice : Utiliser `node:alpine` pour construire l'application, et exposer les fichiers buildés dans une image nginx.
 
 ### Les consignes:
 
